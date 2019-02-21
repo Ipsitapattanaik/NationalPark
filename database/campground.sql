@@ -76,15 +76,15 @@ CREATE TABLE reservation (
 
 
 -- Acadia
-INSERT INTO park (name, location, establish_date, area, visitors, description)
+INSERT INTO park (name, state, establish_date, area, visitors, description)
 VALUES ('Acadia', 'Maine', '1919-02-26', 47389, 2563129, 'Covering most of Mount Desert Island and other coastal islands, Acadia features the tallest mountain on the Atlantic coast of the United States, granite peaks, ocean shoreline, woodlands, and lakes. There are freshwater, estuary, forest, and intertidal habitats.');
 
 -- Arches
-INSERT INTO park (name, location, establish_date, area, visitors, description)
+INSERT INTO park (name, state, establish_date, area, visitors, description)
 VALUES ('Arches',	'Utah', '1929-04-12', 76518,	1284767, 'This site features more than 2,000 natural sandstone arches, including the famous Delicate Arch. In a desert climate, millions of years of erosion have led to these structures, and the arid ground has life-sustaining soil crust and potholes, which serve as natural water-collecting basins. Other geologic formations are stone columns, spires, fins, and towers.');
 
 -- Cuyahoga
-INSERT INTO park (name, location, establish_date, area, visitors, description)
+INSERT INTO park (name, state, establish_date, area, visitors, description)
 VALUES ('Cuyahoga Valley', 'Ohio', '2000-10-11',32860,	2189849, 'This park along the Cuyahoga River has waterfalls, hills, trails, and exhibits on early rural living. The Ohio and Erie Canal Towpath Trail follows the Ohio and Erie Canal, where mules towed canal boats. The park has numerous historic homes, bridges, and structures, and also offers a scenic train ride.');
 
 -- Acadia Campgrounds
