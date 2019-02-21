@@ -3,22 +3,44 @@ package com.techelevator.model;
 import java.time.LocalDate;
 
 public class Park {
-	private int id, area, visitors;
+	private long id;
+	private int area, visitors;
 	private String name, location, description;
 	private LocalDate dayEstablished;
 	
-	public Park(int id, int area, int visitors, String name, String location, String description, LocalDate dayEstablished)
-	{
+	public Park(){
+		
+	}
+
+	public void setId(long id) {
 		this.id = id;
+	}
+
+	public void setArea(int area) {
 		this.area = area;
+	}
+
+	public void setVisitors(int visitors) {
 		this.visitors = visitors;
+	}
+
+	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public void setDayEstablished(LocalDate dayEstablished) {
 		this.dayEstablished = dayEstablished;
 	}
 
-	public int getId()
+	public long getId()
 	{
 		return id;
 	}

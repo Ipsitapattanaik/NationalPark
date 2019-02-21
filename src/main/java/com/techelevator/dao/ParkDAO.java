@@ -6,5 +6,12 @@ import com.techelevator.model.Park;
 
 public interface ParkDAO {
 	List<Park> getAllParks();
-	Park getParkByNameAndState(String parkName, String state);
+
+	Park getParkByName(String parkName);
+
+	List<Park> getParksByState(String state);
+
+	Park getParkById(long id);
+	
+	
 }
