@@ -5,13 +5,15 @@ import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 
 public class Campground {
-	private int id, openFrom, openTo;
+	private long id;
+	private int openFrom, openTo;
 	private String name;
 	private BigDecimal dailyFee;
+
 	
 	private static String[] monthNames = new DateFormatSymbols().getMonths();
 	
-	public Campground(int id, String name, int openFrom, int openTo, BigDecimal dailyFee)
+	public Campground(long id, String name, int openFrom, int openTo, BigDecimal dailyFee)
 	{
 		this.id = id;
 		this.name = name;
@@ -31,7 +33,7 @@ public class Campground {
 		return (openFrom == 1 && openTo == 12); 
 	}
 	
-	public int getId()
+	public long getId()
 	{
 		return id;
 	}
@@ -51,5 +53,26 @@ public class Campground {
 	{
 		return dailyFee;
 	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setOpenFrom(int openFrom) {
+		this.openFrom = openFrom;
+	}
+
+	public void setOpenTo(int openTo) {
+		this.openTo = openTo;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setDailyFee(BigDecimal dailyFee) {
+		this.dailyFee = dailyFee;
+	}
+	
 
 }
