@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -19,7 +20,7 @@ private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public List<Campground> getCampgroundsByParkID(long id) {
-			List<Campground> campgrounds = null;
+			List<Campground> campgrounds = new ArrayList<>();
 			
 			String sqlFindCampgroundById = "SELECT id, name, openFrom, openTo, dailyFee"+
 								   "FROM campground "+
