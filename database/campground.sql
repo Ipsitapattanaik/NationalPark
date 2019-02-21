@@ -17,7 +17,7 @@ CREATE SEQUENCE park_park_id_seq
 CREATE TABLE park (
   park_id integer DEFAULT nextval('park_park_id_seq'::regclass) NOT NULL,
   name varchar(80) NOT NULL,          -- Name of the park
-  location varchar(50) NOT NULL,      -- State name(s) where park is located
+  state varchar(50) NOT NULL,      -- State name(s) where park is located
   establish_date date NOT NULL,       -- Date park was established
   area integer NOT NULL,              -- Area in acres
   visitors integer NOT NULL,          -- Latest recorded number of annual visitors
