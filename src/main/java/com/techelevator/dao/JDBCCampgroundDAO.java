@@ -18,19 +18,18 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public List<Campground> getCampgroundsByParkID(int parkID) {
-			Campground theCampground = null;
+	public List<Campground> getCampgroundsByParkID(long id) {
+			List<Campground> campgrounds = null;
 			
 			String sqlFindCampgroundById = "SELECT id, name, openFrom, openTo, dailyFee"+
 								   "FROM campground "+
 								   "WHERE id = ?";
 			SqlRowSet results = jdbcTemplate.queryForRowSet(sqlFindCampgroundById, id);
 			if(results.next()) {
-				theCampground = mapRowToCampground(results);
-			
-			return theCampground;
+				Campground theCampground = mapRowToCampground(results);
+				campgrounds.add(theCampground);
 		}
-		return null;
+		return campgrounds;
 	}
 	
 	

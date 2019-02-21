@@ -13,14 +13,6 @@ public class Campground {
 	
 	private static String[] monthNames = new DateFormatSymbols().getMonths();
 	
-	public Campground(long id, String name, int openFrom, int openTo, BigDecimal dailyFee)
-	{
-		this.id = id;
-		this.name = name;
-		this.openFrom = openFrom;
-		this.openTo = openTo;
-		this.dailyFee = dailyFee;
-	}
 	
 	public boolean isOpenForDates(LocalDate startDate, LocalDate endDate)
 	{

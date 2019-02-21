@@ -11,20 +11,9 @@ public class Park {
 	public Park(){
 		
 	}
-	
-	public Park(int id, int area, int visitors, String name, String location, String description, LocalDate dayEstablished)
-	{
-		this.id = id;
-		this.area = area;
-		this.visitors = visitors;
-		this.name = name;
-		this.location = location;
-		this.description = description;
-		this.dayEstablished = dayEstablished;
-	}
 
-	public void setId(long l) {
-		this.id = l;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public void setArea(int area) {
