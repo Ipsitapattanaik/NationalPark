@@ -34,6 +34,22 @@ public class Reservation {
 		return fromDate;
 	}
 
+	public void setSiteId(int siteId) {
+		this.siteId = siteId;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setFromDate(LocalDate fromDate) {
+		this.fromDate = fromDate;
+	}
+
+	public void setToDate(LocalDate toDate) {
+		this.toDate = toDate;
+	}
+
 	public LocalDate getToDate() {
 		return toDate;
 	}
