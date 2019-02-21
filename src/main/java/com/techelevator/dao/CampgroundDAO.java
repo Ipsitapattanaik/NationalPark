@@ -5,7 +5,7 @@ import com.techelevator.model.Campground;
 
 public interface CampgroundDAO {
 	
-	List<Campground> getCampgroundsByParkID(long parkID);
+	List<Campground> getCampgroundsByParkID(long id);
 	
 }
  
