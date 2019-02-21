@@ -31,16 +31,15 @@ public class JDBCParkDAO implements ParkDAO {
 	}
 
 	@Override
-	public List<Park> getParkByNameAndState(String parkName, String state) {
-		List<Park> parks = new ArrayList<>();
-		String sqlGetParkByNameAndState = "SELECT * " + "FROM park " + "WHERE name like ? " + "AND location like ?";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetParkByNameAndState, "%" + parkName + "%",
-				"%" + state + "%");
-		while (results.next()) {
-			Park thePark = mapRowToPark(results);
-			parks.add(thePark);
+	public Park getParkByName(String parkName) {
+		Park thePark = new Park();
+		String sqlGetParkByNameAndState = "SELECT * " + "FROM park " + "WHERE name = ? ";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetParkByNameAndState, parkName);
+		if (results.next()) {
+			thePark = mapRowToPark(results);
+			
 		}
-		return parks;
+		return thePark;
 	}
 
 	@Override
