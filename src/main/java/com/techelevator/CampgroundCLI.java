@@ -126,7 +126,7 @@ public class CampgroundCLI {
 		}
 	}
 
-	private void printReservationsForPark(Park park) { // not working
+	private void printReservationsForPark(Park park) { // done
 		List<Campground> campList = campData.getCampgroundsByParkID(park.getId());
 
 		printHeading("Reservations for Campgrounds in " + park.getName() + " for the next 30 days");
