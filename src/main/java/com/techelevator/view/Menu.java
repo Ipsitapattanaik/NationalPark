@@ -18,7 +18,7 @@ public class Menu {
 
 	public Object getChoiceFromOptions(Object[] options) {
 		Object choice = null;
-		while(choice) {
+		while(choice == null) {
 			displayMenuOptions(options);
 			choice = getChoiceFromUserInput(options);
 		}
@@ -27,7 +27,7 @@ public class Menu {
 	
 	public int getIndexFromOptions(Object[] options) {
 		int choice = -1;
-		while(choice) {
+		while(choice == -1) {
 			displayMenuOptions(options);
 			choice = getIndexFromUserInput(options);
 		}
@@ -45,7 +45,7 @@ public class Menu {
 		} catch(NumberFormatException e) {
 			// error message will be displayed below since choice will be null
 		}
-		if(choice) {
+		if(choice == null) {
 			out.println("\n*** "+userInput+" is not a valid option ***\n");
 		}
 		return choice;

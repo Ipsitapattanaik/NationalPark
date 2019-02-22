@@ -14,7 +14,13 @@ public class JDBCCampgroundDAO implements CampgroundDAO{
 
 private JdbcTemplate jdbcTemplate;
 	
-	public void JDBCCityDAO(DataSource dataSource) {
+
+//
+//	public JDBCCampgroundDAO(DataSource datasource) {
+//	// TODO Auto-generated constructor stub
+//}
+
+	public JDBCCampgroundDAO(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
