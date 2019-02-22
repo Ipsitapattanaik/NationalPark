@@ -42,19 +42,14 @@ public class Menu {
 			if(selectedOption <= options.length) {
 				choice = options[selectedOption - 1];
 			}
-		
-		}catch(NumberFormatException e) {
-			// error message will be displayed below since choice will be null
-		
-		if(choice == null) {
+			if (selectedOption <= -1){
+				System.out.println("\n*** "+userInput+" is not a valid option ***\n");
+			}
+
+		}catch(Exception e) {
 			System.out.println("\n*** "+userInput+" is not a valid option ***\n");
+
 		}
-		if (Integer.parseInt(choice.toString()) <= -1){
-			System.out.println("\n*** "+userInput+" is not a valid option ***\n");
-		}
-		//return choice;
-		
-	}
 		return choice;
 	}
 	
