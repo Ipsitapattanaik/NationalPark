@@ -49,16 +49,12 @@ public class Menu {
 
 		}catch(Exception e) {
 			System.out.println("\n*** "+userInput+" is not a valid option ***\n");
-<<<<<<< HEAD
+
 
 		}
 		return choice;
-=======
-		}
 
-	return choice;
->>>>>>> f1587aceccbc6e77888e4e9488d94ffbbf8f6c0d
-	}
+		}
 	
 	private int getIndexFromUserInput(Object[] options) {
 		String userInput = in.nextLine();
