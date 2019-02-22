@@ -37,11 +37,11 @@ public List<Reservation> getReservationsByStartDateForCampground(Campground camp
 private Reservation mapRowToReservation(SqlRowSet results) {
 		Reservation theReservation;
 		theReservation = new Reservation(0, null, null, null);
-				theReservation.setId(results.getLong("site_id")); 
+				theReservation.setId(results.getInt("site_id")); 
 				theReservation.setName(results.getString("name"));
 				theReservation.setFromDate(results.getDate("from_date").toLocalDate()); 
 				theReservation.setToDate(results.getDate("to_date").toLocalDate());
-		theReservation.setId(results.getLong("reservation_id"));
+		theReservation.setId(results.getInt("reservation_id"));
 		theReservation.setCreateDate(results.getDate("create_date").toLocalDate());
 		return theReservation;
 	};
