@@ -136,6 +136,9 @@ public class CampgroundCLI {
 			System.out.println(camp.getName());
 
 			List<Reservation> reserve = reserveData.getReservationsByStartDateForCampground(camp);
+			if (reserve.isEmpty()) {
+				System.out.println("No current reservations, all dates available.");
+			}
 			for (Reservation res : reserve) {
 				System.out.printf("%-6d %-32s %-10s %-10s%n", res.getSiteId(), res.getName(),
 						res.getFromDate().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")),

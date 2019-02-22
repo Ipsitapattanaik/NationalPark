@@ -25,9 +25,9 @@ private JdbcTemplate jdbcTemplate;
 			
 			String sqlFindCampgroundById = "SELECT campground_id, name, open_from_mm, open_to_mm, daily_fee "+
 								   "FROM campground "+
-								   "WHERE campground_id = ?";
+								   "WHERE park_id = ?";
 			SqlRowSet results = jdbcTemplate.queryForRowSet(sqlFindCampgroundById, id);
-			if(results.next()) {
+			while(results.next()) {
 				Campground theCampground = mapRowToCampground(results);
 				campgrounds.add(theCampground);
 		}
