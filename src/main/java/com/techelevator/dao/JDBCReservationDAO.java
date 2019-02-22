@@ -41,7 +41,7 @@ private Reservation mapRowToReservation(SqlRowSet results) {
 				theReservation.setName(results.getString("name"));
 				theReservation.setFromDate(results.getDate("from_date").toLocalDate()); 
 				theReservation.setToDate(results.getDate("to_date").toLocalDate());
-		theReservation.setId(results.getInt("reservation_id"));
+		theReservation.setId(results.getLong("reservation_id"));
 		theReservation.setCreateDate(results.getDate("create_date").toLocalDate());
 		return theReservation;
 	};
@@ -53,15 +53,15 @@ private Reservation mapRowToReservation(SqlRowSet results) {
 	}
 	
 	@Override
-	public int createReservation(int siteId, String name, LocalDate fromDate, LocalDate toDate) throws IllegalArgumentException, InvalidKeyException
+	public int createReservation(long siteId, String name, LocalDate fromDate, LocalDate toDate) throws IllegalArgumentException, InvalidKeyException
 	{
 		if (name == null || fromDate == null || toDate == null) throw new IllegalArgumentException("No parameter can be null");
 		if (fromDate.isAfter(toDate)) throw new IllegalArgumentException("Start date cannot be after end date");
 		
 		try
 		{
-			return jdbcTemplate.queryForObject("INSERT INTO reservation (site_id, name, from_date, to_date, create_date) "
-					+ "VALUES (?,?,?,?,?) RETURNING reservation_id", Integer.class, siteId, name, fromDate, toDate, LocalDate.now());
+			return jdbcTemplate.queryForObject("INSERT INTO reservation (site_id, name, from_date, to_date, create_date)" 
+					+ "VALUES (?,?,?,?) RETURNING reservation_id", Integer.class, siteId, name, fromDate, toDate, LocalDate.now()); 
 		}
 		catch (DataIntegrityViolationException e)
 		{

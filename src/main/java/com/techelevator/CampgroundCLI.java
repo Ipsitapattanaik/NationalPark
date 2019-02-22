@@ -139,7 +139,7 @@ public class CampgroundCLI {
 			for (Reservation res : reserve) {
 				System.out.printf("%-6d %-32s %-10s %-10s%n", res.getSiteId(), res.getName(),
 						res.getFromDate().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")),
-						res.getCreateDate().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
+						res.getToDate().format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
 			}
 		}
 	}
