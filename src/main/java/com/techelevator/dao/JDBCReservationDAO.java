@@ -53,7 +53,7 @@ private Reservation mapRowToReservation(SqlRowSet results) {
 	}
 	
 	@Override
-	public int createReservation(int siteId, String name, LocalDate fromDate, LocalDate toDate) throws IllegalArgumentException, InvalidKeyException
+	public int createReservation(long siteId, String name, LocalDate fromDate, LocalDate toDate) throws IllegalArgumentException, InvalidKeyException
 	{
 		if (name == null || fromDate == null || toDate == null) throw new IllegalArgumentException("No parameter can be null");
 		if (fromDate.isAfter(toDate)) throw new IllegalArgumentException("Start date cannot be after end date");
