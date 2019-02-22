@@ -15,11 +15,6 @@ public class JDBCCampgroundDAO implements CampgroundDAO{
 private JdbcTemplate jdbcTemplate;
 	
 
-//
-//	public JDBCCampgroundDAO(DataSource datasource) {
-//	// TODO Auto-generated constructor stub
-//}
-
 	public JDBCCampgroundDAO(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
@@ -28,9 +23,9 @@ private JdbcTemplate jdbcTemplate;
 	public List<Campground> getCampgroundsByParkID(long id) {
 			List<Campground> campgrounds = new ArrayList<>();
 			
-			String sqlFindCampgroundById = "SELECT id, name, openFrom, openTo, dailyFee"+
+			String sqlFindCampgroundById = "SELECT campground_id, name, open_from_mm, open_to_mm, daily_fee "+
 								   "FROM campground "+
-								   "WHERE id = ?";
+								   "WHERE campground_id = ?";
 			SqlRowSet results = jdbcTemplate.queryForRowSet(sqlFindCampgroundById, id);
 			if(results.next()) {
 				Campground theCampground = mapRowToCampground(results);
@@ -45,11 +40,11 @@ private JdbcTemplate jdbcTemplate;
 		Campground theCampground;
 		theCampground = new Campground();
 		
-		theCampground.setId(results.getLong("id"));
+		theCampground.setId(results.getLong("campground_id"));
 		theCampground.setName(results.getString("name"));
-		theCampground.setOpenFrom(results.getInt("openFrom"));
-		theCampground.setOpenTo(results.getInt("openTo"));
-		theCampground.setDailyFee(results.getBigDecimal("dailyFee"));
+		theCampground.setOpenFrom(results.getInt("open_from_mm"));
+		theCampground.setOpenTo(results.getInt("open_to_mm"));
+		theCampground.setDailyFee(results.getBigDecimal("daily_fee"));
 		return theCampground;
 	}
 
