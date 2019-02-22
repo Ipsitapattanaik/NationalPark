@@ -26,10 +26,10 @@ public List<Reservation> getReservationsByStartDateForCampground(Campground camp
 	List<Reservation> reservation = new ArrayList<>();
 	String sqlGetReservationByStartDate = "SELECT * FROM reservation JOIN site ON reservation.site_id = site.site_id "
 			+ "WHERE campground_id = ? AND from_date BETWEEN current_date AND current_date + INTERVAL '30 day'";
-	SqlRowSet ReservationtNextRow = jdbcTemplate.queryForRowSet(sqlGetReservationByStartDate , campground.getId());
-	while(ReservationtNextRow.next()) {
+	SqlRowSet Results = jdbcTemplate.queryForRowSet(sqlGetReservationByStartDate , campground.getId());
+	while(Results.next()) {
 		
-		reservation.add(mapRowToReservation(null));
+		reservation.add(mapRowToReservation(Results));
 	}
 	return reservation;
 }
@@ -37,7 +37,7 @@ public List<Reservation> getReservationsByStartDateForCampground(Campground camp
 private Reservation mapRowToReservation(SqlRowSet results) {
 		Reservation theReservation;
 		theReservation = new Reservation(0, null, null, null);
-				theReservation.setId(results.getInt("site_id")); 
+				theReservation.setSiteId(results.getLong("site_id"));
 				theReservation.setName(results.getString("name"));
 				theReservation.setFromDate(results.getDate("from_date").toLocalDate()); 
 				theReservation.setToDate(results.getDate("to_date").toLocalDate());
