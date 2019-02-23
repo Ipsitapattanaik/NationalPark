@@ -162,42 +162,37 @@ public class CampgroundCLI {
 	}
 
 	private void selectCampgroundForReservation(Park park) {
-		{
-			while (true)
-			{
-				List<Campground> campList = campData.getCampgroundsByParkID(park.getId());
-				
-				printHeading(park.getName() + " National Park Campgrounds");
-				System.out.printf("%-2s %-32s %-10s %-10s %-8s", "", "Name", "Open", "Close", "Daily Fee");
-				
-				String[] campNames = new String[campList.size() + 1];
-				int i = 0;
-				for (Campground camp : campList)
-				{
-					campNames[i] = String.format("%-32s %-10s %-10s $%-8s", camp.getName(), camp.getOpenFrom(), camp.getOpenTo(), camp.getDailyFee().toPlainString());
-					System.out.println(campNames[i]);
-					i++;
-				}
-				campNames[i] = "cancel";
-				System.out.println(campNames[i]);
-			
-			
-		}
-			
-	private void searchForAvailableReservation(Campground campground, LocalDate startDate, LocalDate endDate) {
 
-				int choice = menu.getIndexFromOptions(campNames);
-				
-				if (choice == campNames.length - 1) {
-					break;
-				}else
-				{
-					selectDatesForReservation(campList.get(choice));
-					break;
-				}
+		while (true) {
+			List<Campground> campList = campData.getCampgroundsByParkID(park.getId());
+
+			printHeading(park.getName() + " National Park Campgrounds");
+			System.out.printf("%-2s %-32s %-10s %-10s %-8s", "", "Name", "Open", "Close", "Daily Fee");
+
+			String[] campNames = new String[campList.size() + 1];
+			int i = 0;
+			for (Campground camp : campList) {
+				campNames[i] = String.format("%-32s %-10s %-10s $%-8s", camp.getName(), camp.getOpenFrom(),
+						camp.getOpenTo(), camp.getDailyFee().toPlainString());
+				System.out.println(campNames[i]);
+				i++;
+			}
+			campNames[i] = "cancel";
+			System.out.println(campNames[i]);
+
 		}
-		//}
-	//}
+
+		
+		  private void searchForAvailableReservation(Campground campground, LocalDate
+		  startDate, LocalDate endDate) {
+		  
+		  int choice = menu.getIndexFromOptions(campNames);
+		  
+		  if (choice == campNames.length - 1) { break; }else {
+		  selectDatesForReservation(campList.get(choice)); break; }
+		  }
+	// }
+	// }
 
 	private void selectDatesForReservation(Campground campground) {
 		while (true) {
