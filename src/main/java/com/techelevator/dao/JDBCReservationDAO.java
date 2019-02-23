@@ -73,7 +73,7 @@ private Reservation mapRowToReservation(SqlRowSet results) {
 	
 	
 	private long getNextReservationId() {
-		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('seq_reserevation_id')");
+		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('seq_reservation_id')");
 		if (nextIdResult.next()) {
 			return nextIdResult.getLong(1);
 		} else {
