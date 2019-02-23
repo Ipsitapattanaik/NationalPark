@@ -31,9 +31,9 @@ public class JDBCSiteDAO implements SiteDAO {
 		if (startDate.isAfter(endDate))
 			throw new IllegalArgumentException("Start date cannot be after end date");
 
-		return db.query("SELECT (max_occupancy, accessible, max_rv_length, utilities) * FROM site "
+		return db.query("SELECT (site_id, site_number, max_occupancy, accessible, max_rv_length, utilities) FROM site "
 				+ "WHERE campground_id = ? AND accessible = ? AND max_rv_length > ? AND utilities = ? AND max_occupancy > ? AND site_id NOT IN "
-				+ "(SELECT DISTINCT site_id FROM reservation WHERE (from_date, to_date) OVERLAPS (?, ?))",
+				+ "(SELECT DISTINCT site_id FROM reservation WHERE (from_date, to_date) OVERLAPS (?, ?)) LIMIT 5",
 				mapRowToSite, campgroundID, accessible, max_rv_length, utilities, max_occupancy, startDate, endDate);
 
 	}
