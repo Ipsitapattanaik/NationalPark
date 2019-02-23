@@ -49,8 +49,6 @@ public class Menu {
 
 		}catch(Exception e) {
 			System.out.println("\n*** "+userInput+" is not a valid option ***\n");
-
-
 		}
 		return choice;
 

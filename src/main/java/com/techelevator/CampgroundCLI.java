@@ -46,8 +46,8 @@ public class CampgroundCLI {
 	private final static String[] PARK_OPTIONS = { VIEW_CAMPGROUNDS, SEARCH_RESERVATIONS, RETURN };
 	
 	//Campground options 
-	private final static String SEARCH_AVAILABLE_RESERVATION = "Search for Available Reservation";
-	private final static String[] CAMP_OPTIONS = { SEARCH_AVAILABLE_RESERVATION, RETURN };
+	private final static String SELECT_AVAILABLE_RESERVATION = "Select Available Reservation";
+	private final static String[] CAMP_OPTIONS = { SELECT_AVAILABLE_RESERVATION, RETURN };
 
 	public static void main(String[] args) throws SQLException {
 		BasicDataSource dataSource = new BasicDataSource();
@@ -152,7 +152,7 @@ public class CampgroundCLI {
 				String choice = (String)menu.getChoiceFromOptions(CAMP_OPTIONS);
 				
 				if (choice.equals(RETURN)) break;
-				else if (choice.equals(SEARCH_AVAILABLE_RESERVATION))
+				else if (choice.equals(SELECT_AVAILABLE_RESERVATION))
 				{
 					selectCampgroundForReservation(park);  //method calling 
 					break;
@@ -214,7 +214,7 @@ public class CampgroundCLI {
 		}
 	}
 	
-	private void selectDatesForReservation(Campground campground)
+	private void getInputForReservation(Campground campground)
 	{
 		while (true)
 		{
@@ -226,8 +226,14 @@ public class CampgroundCLI {
 				if (fromDate.isAfter(LocalDate.now()))
 				{
 					if (campground.isOpenForDates(fromDate, toDate))
-					{
+					{ 	
+						boolean accessible;
+						int max_rv_length ;
+						boolean utilities;
+						int max_occupnacy;
+						
 						displayAvailableSites(campground, fromDate, toDate);
+						
 						break;
 					}
 					else System.out.println("Campsite is closed during selected period");
@@ -238,11 +244,11 @@ public class CampgroundCLI {
 		}
 	}
 	
-	private void displayAvailableSites(Campground campground, LocalDate fromDate, LocalDate toDate)
+	private void displayAvailableSites(Campground campground, LocalDate fromDate, LocalDate toDate, boolean accessible, int max_rv_length, boolean utilities, int max_occupancy)
 	{
 		while (true)
 		{
-			List<Site> availableSites = siteData.getSitesAvailableForDateRange(campground.getId(), fromDate, toDate);
+			List<Site> availableSites = siteData.getSitesAvailableForDateRange(campground.getId(), fromDate, toDate, accessible, max_rv_length, utilities, max_occupancy);
 			BigDecimal totalCost = campground.getDailyFee()
 					.multiply(new BigDecimal(fromDate.until(toDate, ChronoUnit.DAYS) + 1));
 			printHeading(campground.getName() + " - Available Configurations");
@@ -307,6 +313,7 @@ public class CampgroundCLI {
 		}
 		return input;
 	}
+	
 	
 	private String booleanToYesNo(boolean input)
 	{
