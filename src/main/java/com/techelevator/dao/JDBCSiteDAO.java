@@ -16,7 +16,7 @@ public class JDBCSiteDAO implements SiteDAO
 	
 	private RowMapper<Site> mapRowToSite = (row, pos) -> {
 		Site s = new Site();
-		
+
 		return s;
 	};
 	
