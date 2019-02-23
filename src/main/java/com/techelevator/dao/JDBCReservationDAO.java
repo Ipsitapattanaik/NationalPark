@@ -77,7 +77,7 @@ private Reservation mapRowToReservation(SqlRowSet results) {
 		if (nextIdResult.next()) {
 			return nextIdResult.getLong(1);
 		} else {
-			throw new RuntimeException("Something went wrong while getting an id for the new department");
+			throw new RuntimeException("Something went wrong while getting an id for the new reservation");
 		}
 }
 //
