@@ -268,7 +268,7 @@ public class CampgroundCLI {
 			boolean stop = false;
 			while (!stop) {
 				String userInput = getUserInput(
-						"If you require space for an RV please enter the length of your RV. If you do not have an RV. Please enter \"0\"");
+						"If you require space for an RV please enter the length of your RV in feet. If you do not have an RV, please enter \"0\"");
 				try {
 					max_rv_length = Integer.parseInt(userInput);
 					stop = true;
