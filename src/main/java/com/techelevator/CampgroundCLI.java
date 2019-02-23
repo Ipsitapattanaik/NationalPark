@@ -1,5 +1,6 @@
 package com.techelevator;
 
+
 import java.math.BigDecimal;
 import java.security.InvalidKeyException;
 import java.sql.SQLException;
@@ -38,10 +39,13 @@ public class CampgroundCLI {
 	private SiteDAO siteData;
 	private ReservationDAO reserveData;
 
+	//Main menu options 
 	private final static String VIEW_CAMPGROUNDS = "View Campgrounds";
 	private final static String SEARCH_RESERVATIONS = "Search for Reservation";
 	private final static String RETURN = "Return to Previous Screen";
 	private final static String[] PARK_OPTIONS = { VIEW_CAMPGROUNDS, SEARCH_RESERVATIONS, RETURN };
+	
+	//Campground options 
 	private final static String SEARCH_AVAILABLE_RESERVATION = "Search for Available Reservation";
 	private final static String[] CAMP_OPTIONS = { SEARCH_AVAILABLE_RESERVATION, RETURN };
 
@@ -64,7 +68,8 @@ public class CampgroundCLI {
 		reserveData = new JDBCReservationDAO(datasource);
 	}
 
-	public void run() {
+	public void run() {   //wellcome message 
+		
 		System.out.println("+----------------------------------+");
 		System.out.println("|      National Park Campground    |");
 		System.out.println("|                by                |");
@@ -77,11 +82,12 @@ public class CampgroundCLI {
 		System.out.println("+----------------------------------+");
 
 		while (true) {
-			printMainMenu();
+			printMainMenu();   //method calling
 		}
 	}
 
-	private void printMainMenu() {
+	// Display Main menu option - All Park Names
+	private void printMainMenu() { //done
 		printHeading("Select a Park for Further Details");
 		List<Park> parkList = parkData.getAllParks();
 
@@ -93,7 +99,7 @@ public class CampgroundCLI {
 		}
 		parkNames[i] = "Quit";
 
-		String choice = (String) menu.getChoiceFromOptions(parkNames);
+		String choice = (String) menu.getChoiceFromOptions(parkNames);  
 		if (choice.equals("Quit"))
 			System.exit(0);
 		else {
@@ -102,7 +108,8 @@ public class CampgroundCLI {
 			// printParkInfo(parkData.getParkByState(parkState[0]));
 		}
 	}
-
+	
+ // Print the selected park's information 
 	private void printParkInfo(Park park) { //done
 		while (true) {
 			printHeading(park.getName() + " National Park");
@@ -116,22 +123,50 @@ public class CampgroundCLI {
 
 			String choice = (String) menu.getChoiceFromOptions(PARK_OPTIONS);
 
-			if (choice.equals(RETURN))
+			
+			 if (choice.equals(VIEW_CAMPGROUNDS)) {  //option 1
+				printCampgroundInfo(park);               //method calling 
+				
+			} else if (choice.equals(SEARCH_RESERVATIONS)) { //option 2
+				printReservationsForPark(park);  // method calling
+				
+			}else if (choice.equals(RETURN)) //option 3
 				break;
-			else if (choice.equals(VIEW_CAMPGROUNDS)) {
-				printCampgroundInfo(park);
-			} else if (choice.equals(SEARCH_RESERVATIONS)) {
-				printReservationsForPark(park);
-			}
 		}
 	}
+	
+	//When "View Campgrounds" option 1 is Selected
+		private void printCampgroundInfo(Park park) // done
+		{
+			while (true)
+			{
+				List<Campground> campList = campData.getCampgroundsByParkID(park.getId());
+				
+				printHeading(park.getName() + " National Park Campgrounds");
+				System.out.printf("%-32s %-10s %-10s %-8s%n", "Name", "Open", "Close", "Daily Fee");
+				for (Campground camp : campList)
+				{
+					System.out.printf("%-32s %-10s %-10s $%-8s%n", camp.getName(), camp.getOpenFrom(), camp.getOpenTo(), camp.getDailyFee().toPlainString());
+				}
 
+				String choice = (String)menu.getChoiceFromOptions(CAMP_OPTIONS);
+				
+				if (choice.equals(RETURN)) break;
+				else if (choice.equals(SEARCH_AVAILABLE_RESERVATION))
+				{
+					selectCampgroundForReservation(park);  //method calling 
+					break;
+				}
+			}
+		}
+		
+	//When "Search for Reservation" option 2 is Selected
 	private void printReservationsForPark(Park park) { // done
 		List<Campground> campList = campData.getCampgroundsByParkID(park.getId());
 
 		printHeading("Reservations for Campgrounds in " + park.getName() + " for the next 30 days");
 
-		for (Campground camp : campList) {
+		for (Campground camp : campList) {  //iterate over the CampgroundsByParkID List
 
 			System.out.println(camp.getName());
 
@@ -147,115 +182,151 @@ public class CampgroundCLI {
 		}
 	}
 
-	private void printCampgroundInfo(Park park) {
-		while (true) {
-			List<Campground> campList = campData.getCampgroundsByParkID(park.getId());
+	//When option 1 (inside "view campground") selected "Search for Available Reservation"
+	//
+	private void selectCampgroundForReservation(Park park)
+	{
+		while (true)
+		{
+			List<Campground> campList = campData.getCampgroundsByParkID(park.getId()); // get and store all campgrounds details in campList
+			
+			printHeading(park.getName() + " National Park Campgrounds");
+			System.out.printf("%-2s %-32s %-10s %-10s %-8s", "", "Name", "Open", "Close", "Daily Fee"); //header
+			
+			String[] campNames = new String[campList.size() + 1]; //new array of campNames = array of campList size +1 
+			int i = 0;
+			for (Campground camp : campList)   //iterate over the CampgroundsByParkID List
+			{
+				//get list of all campgrounds in the park
+				campNames[i] = String.format("%-32s %-10s %-10s $%-8s", camp.getName(), camp.getOpenFrom(), camp.getOpenTo(), camp.getDailyFee().toPlainString());
+				i++;
+			}
+			campNames[i] = "Cancel";
 
-			String choice = (String) menu.getChoiceFromOptions(CAMP_OPTIONS);
-
-			if (choice.equals(RETURN))
-				break;
-			else if (choice.equals(SEARCH_AVAILABLE_RESERVATION)) {
-				selectCampgroundForReservation(park);
+			int choice = menu.getIndexFromOptions(campNames); // 
+			
+			if (choice == campNames.length - 1) break;
+			else
+			{
+				selectDatesForReservation(campList.get(choice));
 				break;
 			}
 		}
 	}
-
-	private void selectCampgroundForReservation(Park park) {
+	
+	private void selectDatesForReservation(Campground campground)
+	{
+		while (true)
 		{
-			while (true)
-			{
-				List<Campground> campList = campData.getCampgroundsByParkID(park.getId());
-				
-				printHeading(park.getName() + " National Park Campgrounds");
-				System.out.printf("%-2s %-32s %-10s %-10s %-8s", "", "Name", "Open", "Close", "Daily Fee");
-				
-				String[] campNames = new String[campList.size() + 1];
-				int i = 0;
-				for (Campground camp : campList)
-				{
-					campNames[i] = String.format("%-32s %-10s %-10s $%-8s", camp.getName(), camp.getOpenFrom(), camp.getOpenTo(), camp.getDailyFee().toPlainString());
-					i++;
-				}
-				campNames[i] = "cancel";
-
-				int choice = menu.getIndexFromOptions(campNames);
-				
-				if (choice == campNames.length - 1) break;
-				else
-				{
-					selectDatesForReservation(campList.get(choice));
-					break;
-				}
-		}
-		}
-	}
-
-	private void selectDatesForReservation(Campground campground) {
-		while (true) {
 			LocalDate fromDate = promptForDate(true);
 			LocalDate toDate = promptForDate(false);
-
-			if (fromDate.isBefore(toDate)) {
-				if (fromDate.isAfter(LocalDate.now())) {
-					if (campground.isOpenForDates(fromDate, toDate)) {
+			
+			if (fromDate.isBefore(toDate))
+			{
+				if (fromDate.isAfter(LocalDate.now()))
+				{
+					if (campground.isOpenForDates(fromDate, toDate))
+					{
 						displayAvailableSites(campground, fromDate, toDate);
 						break;
-					} else
-						System.out.println("Campsite is closed during selected period");
-				} else
-					System.out.println("Starting date must be after today");
-			} else
-				System.out.println("End date was before start date. Please try again");
-		}
-	}
-
-	private void displayAvailableSites(Campground campground, LocalDate fromDate, LocalDate toDate) {
-		while (true) {
-
-			break;
-		}
-	}
-
-	private void createReservation(Site site, LocalDate fromDate, LocalDate toDate) {
-		while (true) {
-
-			break;
-		}
-	}
-
-	private LocalDate promptForDate(boolean arrival) {
-		LocalDate input = null;
-
-		while (input == null) {
-			try {
-				input = LocalDate.parse(
-						getUserInput("What is the " + ((arrival) ? "arrival" : "departure") + " date? mm/dd/yyyy"),
-						DateTimeFormatter.ofPattern("MM/dd/yyyy").withLocale(Locale.US));
-			} catch (DateTimeParseException e) {
-				System.out.println("Invalid date format. Please use formate mm/dd/yyyy");
+					}
+					else System.out.println("Campsite is closed during selected period");
+				}
+				else System.out.println("Starting date must be after today");
 			}
+			else System.out.println("End date was before start date. Please try again");
+		}
+	}
+	
+	private void displayAvailableSites(Campground campground, LocalDate fromDate, LocalDate toDate)
+	{
+		while (true)
+		{
+			List<Site> availableSites = siteData.getSitesAvailableForDateRange(campground.getId(), fromDate, toDate);
+			BigDecimal totalCost = campground.getDailyFee()
+					.multiply(new BigDecimal(fromDate.until(toDate, ChronoUnit.DAYS) + 1));
+			printHeading(campground.getName() + " - Available Configurations");
+			System.out.printf("%-2s %-10s %-10s %-13s %-7s %-5s%n", "", "Max Occup.", "Accessible", "Max RV Length",
+					"Utility", "Cost");
+			String[] options = new String[availableSites.size() + 1];
+			int i = 0;
+			for (Site site : availableSites) {
+				options[i] = String.format("%-10s %-10s %-13s %-7s $%-5s", site.getMaxOccupancy(),
+						booleanToYesNo(site.isAccessible()), intToNAorNumber(site.getMaxRVLength()),
+						booleanToYesNo(site.isUtilities()), totalCost.toPlainString());
+				i++;
+			}
+			options[i] = "Cancel";
+			
+			int choice = menu.getIndexFromOptions(options);
+			
+			if (choice == options.length - 1) break;
+			else
+			{
+				createReservation(availableSites.get(choice), fromDate, toDate);
+				break;
+			}
+		}
+	}
+	
+	private void createReservation(Site site, LocalDate fromDate, LocalDate toDate)
+	{
+		while(true)
+		{
+			String resName = getUserInput("Please enter a name for the reservation");
+			int returnedId;
+			
+			try
+			{
+				returnedId = reserveData.createReservation(site.getId(), resName, fromDate, toDate);
+				System.out.println("The reservation has been made and the confirmation id is " +returnedId);
+			}
+			catch (InvalidKeyException e)
+			{
+				System.out.println("Something went wrong when trying to create the reservation");
+			}
+			break;
+		}
+	}
+	
+	private LocalDate promptForDate(boolean arrival)
+	{
+		LocalDate input = null;
+		
+		while (input == null)
+		{
+			try
+			{
+				input = LocalDate.parse(getUserInput("What is the " + ((arrival) ? "arrival" : "departure") + " date? mm/dd/yyyy"),
+						DateTimeFormatter.ofPattern("MM/dd/yyyy").withLocale(Locale.US));
+			}
+			catch (DateTimeParseException e)
+			{
+				System.out.println("Invalid date format. Please use formate mm/dd/yyyy");
+			} 
 		}
 		return input;
 	}
-
-	private String booleanToYesNo(boolean input) {
+	
+	private String booleanToYesNo(boolean input)
+	{
 		return (input) ? "Yes" : "No";
 	}
-
-	private String intToNAorNumber(int input) {
+	
+	private String intToNAorNumber(int input)
+	{
 		return (input == 0) ? "N/A" : Integer.toString(input);
 	}
-
-	private void printHeading(String heading) {
+	
+	private void printHeading(String heading)
+	{
 		System.out.printf("%n%s%n", heading);
-		for (int i = 0; i < heading.length(); i++)
-			System.out.print('-');
+		for (int i = 0; i < heading.length(); i++) System.out.print('-');
 		System.out.println();
 	}
-
-	private String getUserInput(String prompt) {
+	
+	private String getUserInput(String prompt)
+	{
 		System.out.print(prompt + " >>> ");
 		return userInput.nextLine();
 	}

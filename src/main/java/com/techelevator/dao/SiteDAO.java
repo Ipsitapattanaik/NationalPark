@@ -7,6 +7,8 @@ import com.techelevator.model.Site;
 
 public interface SiteDAO
 {
-	List <Site> getAvailableSitesByCampground(long campground_id, LocalDate start_date, LocalDate end_date) throws IllegalArgumentException;
-	List <Site> getAvailableSitesByPark(long park_id, LocalDate start_date, LocalDate end_date) throws IllegalArgumentException;
-}
+	List<Site> getSitesAvailableForDateRange(long l, LocalDate startDate, LocalDate endDate)
+			throws IllegalArgumentException;
+	}
+
+

@@ -12,6 +12,7 @@ public interface ParkDAO {
 	List<Park> getParksByState(String state);
 
 	Park getParkById(long id);
+
 	
 	
 }

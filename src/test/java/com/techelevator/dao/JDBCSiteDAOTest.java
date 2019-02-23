@@ -1,0 +1,14 @@
+package com.techelevator.dao;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class JDBCSiteDAOTest {
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}
