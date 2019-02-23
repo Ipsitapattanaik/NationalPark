@@ -1,12 +1,10 @@
 package com.techelevator;
 
-import java.math.BigDecimal;
-import java.security.InvalidKeyException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoUnit;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -103,7 +101,7 @@ public class CampgroundCLI {
 		}
 	}
 
-	private void printParkInfo(Park park) { //done
+	private void printParkInfo(Park park) { // done
 		while (true) {
 			printHeading(park.getName() + " National Park");
 			System.out.printf("%-16s %s%n", "Location:", park.getLocation());
@@ -148,6 +146,7 @@ public class CampgroundCLI {
 	}
 
 	private void printCampgroundInfo(Park park) {
+		// done
 		while (true) {
 			List<Campground> campList = campData.getCampgroundsByParkID(park.getId());
 
@@ -176,21 +175,29 @@ public class CampgroundCLI {
 				for (Campground camp : campList)
 				{
 					campNames[i] = String.format("%-32s %-10s %-10s $%-8s", camp.getName(), camp.getOpenFrom(), camp.getOpenTo(), camp.getDailyFee().toPlainString());
+					System.out.println(campNames[i]);
 					i++;
 				}
 				campNames[i] = "cancel";
+				System.out.println(campNames[i]);
+			
+			
+		}
+			
+	private void searchForAvailableReservation(Campground campground, LocalDate startDate, LocalDate endDate) {
 
 				int choice = menu.getIndexFromOptions(campNames);
 				
-				if (choice == campNames.length - 1) break;
-				else
+				if (choice == campNames.length - 1) {
+					break;
+				}else
 				{
 					selectDatesForReservation(campList.get(choice));
 					break;
 				}
 		}
-		}
-	}
+		//}
+	//}
 
 	private void selectDatesForReservation(Campground campground) {
 		while (true) {
