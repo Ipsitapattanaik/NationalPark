@@ -14,6 +14,7 @@ import java.util.Scanner;
 
 import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import com.techelevator.dao.CampgroundDAO;
 import com.techelevator.dao.JDBCCampgroundDAO;
@@ -203,7 +204,7 @@ public class CampgroundCLI {
 			}
 			campNames[i] = "Cancel";
 
-			int choice = menu.getIndexFromOptions(campNames); // 
+			int choice = menu.getIndexFromOptions(campNames); 
 			
 			if (choice == campNames.length - 1) break;
 			else
@@ -213,6 +214,7 @@ public class CampgroundCLI {
 			}
 		}
 	}
+//	}
 	
 	private void selectDatesForReservation(Campground campground)
 	{
@@ -263,19 +265,19 @@ public class CampgroundCLI {
 			if (choice == options.length - 1) break;
 			else
 			{
-				createReservation(availableSites.get(choice), fromDate, toDate);
+				getNameForReservation(availableSites.get(choice), fromDate, toDate);
 				break;
 			}
 		}
 	}
 	
-	private void createReservation(Site site, LocalDate fromDate, LocalDate toDate)
+	private void getNameForReservation(Site site, LocalDate fromDate, LocalDate toDate)
 	{
 		while(true)
 		{
 			String resName = getUserInput("Please enter a name for the reservation");
-			int returnedId;
-			
+			long returnedId;
+					
 			try
 			{
 				returnedId = reserveData.createReservation(site.getId(), resName, fromDate, toDate);
@@ -289,6 +291,8 @@ public class CampgroundCLI {
 		}
 	}
 	
+
+
 	private LocalDate promptForDate(boolean arrival)
 	{
 		LocalDate input = null;

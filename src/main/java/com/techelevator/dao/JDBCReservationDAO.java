@@ -53,21 +53,33 @@ private Reservation mapRowToReservation(SqlRowSet results) {
 	}
 	
 	@Override
-	public int createReservation(long siteId, String name, LocalDate fromDate, LocalDate toDate) throws IllegalArgumentException, InvalidKeyException
+	public long createReservation(long siteId, String name, LocalDate fromDate, LocalDate toDate) throws IllegalArgumentException, InvalidKeyException
 	{
 		if (name == null || fromDate == null || toDate == null) throw new IllegalArgumentException("No parameter can be null");
 		if (fromDate.isAfter(toDate)) throw new IllegalArgumentException("Start date cannot be after end date");
 		
 		try
 		{
-			return jdbcTemplate.queryForObject("INSERT INTO reservation (site_id, name, from_date, to_date, create_date)" 
-					+ "VALUES (?,?,?,?) RETURNING reservation_id", Integer.class, siteId, name, fromDate, toDate, LocalDate.now()); 
+			long reserveid = getNextReservationId();
+			jdbcTemplate.queryForObject("INSERT INTO reservation (reservation_id ,site_id, name, from_date, to_date, create_date)" 
+					+ "VALUES (?,?,?,?,?)", Integer.class,reserveid, siteId, name, fromDate, toDate, LocalDate.now());
+			return reserveid;
 		}
 		catch (DataIntegrityViolationException e)
 		{
 			throw new InvalidKeyException("Site ID was not a valid site");
 		}
 	}
+	
+	
+	private long getNextReservationId() {
+		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('seq_reserevation_id')");
+		if (nextIdResult.next()) {
+			return nextIdResult.getLong(1);
+		} else {
+			throw new RuntimeException("Something went wrong while getting an id for the new department");
+		}
+}
 //
 //	@Override
 //	public List<Reservation> getReservationsByStartDateForCampground(Campground campground)
