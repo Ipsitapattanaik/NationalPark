@@ -354,9 +354,10 @@ public class CampgroundCLI {
 		while (true) {
 			String resName = getUserInput("Please enter a name for the reservation");
 			long returnedId;
+			long siteID=site.getId();
 
 			try {
-				returnedId = reserveData.createReservation(site.getId(), resName, fromDate, toDate);
+				returnedId = reserveData.createReservation(siteID, resName, fromDate, toDate);
 				System.out.println("The reservation has been made and the confirmation id is " + returnedId);
 			} catch (InvalidKeyException e) {
 				System.out.println("Something went wrong when trying to create the reservation");

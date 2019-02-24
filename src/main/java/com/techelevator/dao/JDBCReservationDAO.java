@@ -59,7 +59,7 @@ public class JDBCReservationDAO implements ReservationDAO {
 		try {
 			long reserveId = getNextReservationId();
 			String sqlCreateReservation = "INSERT INTO reservation (reservation_id ,site_id, name, from_date, to_date, create_date) VALUES (?,?,?,?,?)";
-			jdbcTemplate.update(sqlCreateReservation, reserveId, siteId, name, fromDate, toDate, "NOW()");
+			jdbcTemplate.update(sqlCreateReservation, reserveId, siteId, name, java.sql.Date.valueOf(fromDate), java.sql.Date.valueOf(toDate), "NOW()");
 			// ("INSERT INTO reservation (reservation_id ,site_id, name, from_date, to_date,
 			// create_date)"
 			// + "VALUES (?,?,?,?,?)",reserveid, siteId, name, fromDate, toDate,
