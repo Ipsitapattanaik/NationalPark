@@ -43,7 +43,8 @@ public class CampgroundCLI {
 	private final static String VIEW_CAMPGROUNDS = "View Campgrounds";
 	private final static String SEARCH_RESERVATIONS = "Search for Reservation";
 	private final static String RETURN = "Return to Previous Screen";
-	private final static String[] PARK_OPTIONS = { VIEW_CAMPGROUNDS, SEARCH_RESERVATIONS, RETURN };
+	private final static String VIEW_ALL_PARKS = "View all Parks";
+	private final static String[] PARK_OPTIONS = { VIEW_CAMPGROUNDS, SEARCH_RESERVATIONS, VIEW_ALL_PARKS };
 
 	// Campground options
 	private final static String SELECT_AVAILABLE_RESERVATION = "Select Available Reservation";
