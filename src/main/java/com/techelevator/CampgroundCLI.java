@@ -327,7 +327,7 @@ public class CampgroundCLI {
 			BigDecimal totalCost = campground.getDailyFee()
 					.multiply(new BigDecimal(fromDate.until(toDate, ChronoUnit.DAYS) + 1));
 			printHeading(campground.getName() + " - Available Configurations");
-			System.out.printf("%-2s %-10s %-10s %-13s %-7s %-5s%n", "", "Max Occup.", "Accessible", "Max RV Length",
+			System.out.printf("%-2s %-10s %-10s %-13s %-7s %-2s%n", "", "Max Occup.", "Accessible", "Max RV Length",
 					"Utility", "Cost");
 			String[] options = new String[availableSites.size() + 1];
 			int i = 0;
@@ -338,6 +338,7 @@ public class CampgroundCLI {
 				i++;
 			}
 			options[i] = "Cancel";
+			System.out.println("No sites available, would you like to try an alternate date?");
 
 			int choice = menu.getIndexFromOptions(options);
 			
