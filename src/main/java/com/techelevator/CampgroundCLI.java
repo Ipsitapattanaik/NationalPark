@@ -130,7 +130,7 @@ public class CampgroundCLI {
 			} else if (choice.equals(SEARCH_RESERVATIONS)) { // option 2
 				printReservationsForPark(park); // method calling
 
-			} else if (choice.equals(RETURN)) // option 3
+			} else if (choice.equals(VIEW_ALL_PARKS)) // option 3
 				break;
 		}
 	}
