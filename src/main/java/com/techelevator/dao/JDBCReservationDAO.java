@@ -73,11 +73,11 @@ private Reservation mapRowToReservation(SqlRowSet results) {
 	
 	
 	private long getNextReservationId() {
-		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('seq_reserevation_id')");
+		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('reservation_reservation_id_seq')");
 		if (nextIdResult.next()) {
 			return nextIdResult.getLong(1);
 		} else {
-			throw new RuntimeException("Something went wrong while getting an id for the new department");
+			throw new RuntimeException("Something went wrong while getting an id for the new reservation");
 		}
 }
 //
