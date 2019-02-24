@@ -203,18 +203,18 @@ public class CampgroundCLI {
 			}
 			campNames[i] = "Cancel";
 
-			int choice = menu.getIndexFromOptions(campNames); 
-			
-			if (choice == campNames.length - 1) break;
-			else
-			{
+			int choice = menu.getIndexFromOptions(campNames);
+
+			if (choice == campNames.length - 1)
+				break;
+			else {
 				selectDatesForReservation(campList.get(choice));
 				break;
 			}
 		}
 	}
 //	}
-	
+
 	private void selectDatesForReservation(Campground campground)
 	// selectDatesForReservation?^
 	{
@@ -324,42 +324,38 @@ public class CampgroundCLI {
 		while (true) {
 			List<Site> availableSites = siteData.getSitesAvailableForDateRange(campground.getId(), fromDate, toDate,
 					accessible, max_rv_length, utilities, max_occupancy);
+
 			BigDecimal totalCost = campground.getDailyFee()
 					.multiply(new BigDecimal(fromDate.until(toDate, ChronoUnit.DAYS) + 1));
 			printHeading(campground.getName() + " - Available Configurations");
-			System.out.printf("%-2s %-10s %-10s %-13s %-7s %-2s%n", "", "Max Occup.", "Accessible", "Max RV Length",
-					"Utility", "Cost");
+			System.out.println("Option \t Max Occup. \t Accessible \t Max RV Length \t Utility \t Cost");
 			String[] options = new String[availableSites.size() + 1];
 			int i = 0;
 			for (Site site : availableSites) {
-				options[i] = String.format("%-10s %-10s %-13s %-7s $%-5s", site.getMaxOccupancy(),
-						booleanToYesNo(site.isAccessible()), intToNAorNumber(site.getMaxRVLength()),
-						booleanToYesNo(site.isUtilities()), totalCost.toPlainString());
+				options[i] = ("\t"+site.getMaxOccupancy() +"\t" +"\t" + booleanToYesNo(site.isAccessible()) +"\t" +"\t"
+						+ intToNAorNumber(site.getMaxRVLength()) +"\t" +"\t" + booleanToYesNo(site.isUtilities()) +"\t" +"\t" + totalCost)
+								.toString();
 				i++;
 			}
 			options[i] = "Cancel";
-			System.out.println("No sites available, would you like to try an alternate date?");
 
 			int choice = menu.getIndexFromOptions(options);
-			
-			if (choice == options.length - 1) break;
-			else
-			{
+
+			if (choice == options.length - 1)
+				break;
+			else {
 				getNameForReservation(availableSites.get(choice), fromDate, toDate);
 				break;
 			}
 		}
 	}
-	
-	private void getNameForReservation(Site site, LocalDate fromDate, LocalDate toDate)
-	{
-		while(true)
-		{
+
+	private void getNameForReservation(Site site, LocalDate fromDate, LocalDate toDate) {
+		while (true) {
 			String resName = getUserInput("Please enter a name for the reservation");
 			long returnedId;
-					
-			try
-			{
+
+			try {
 				returnedId = reserveData.createReservation(site.getId(), resName, fromDate, toDate);
 				System.out.println("The reservation has been made and the confirmation id is " + returnedId);
 			} catch (InvalidKeyException e) {
@@ -368,11 +364,8 @@ public class CampgroundCLI {
 			break;
 		}
 	}
-	
 
-
-	private LocalDate promptForDate(boolean arrival)
-	{
+	private LocalDate promptForDate(boolean arrival) {
 		LocalDate input = null;
 
 		while (input == null) {
