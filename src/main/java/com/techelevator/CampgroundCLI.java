@@ -253,7 +253,7 @@ public class CampgroundCLI {
 						accessible = true;
 						stop = true;
 					}
-					if (Integer.parseInt(userInput) == 2) {
+					else if (Integer.parseInt(userInput) == 2) {
 						accessible = false;
 						stop = true;
 					} else {
@@ -288,7 +288,7 @@ public class CampgroundCLI {
 						utilities = true;
 						stop = true;
 					}
-					if (Integer.parseInt(userInput) == 2) {
+					else if (Integer.parseInt(userInput) == 2) {
 						utilities = false;
 						stop = true;
 					} else {
