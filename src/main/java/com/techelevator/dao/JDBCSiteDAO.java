@@ -31,7 +31,7 @@ public class JDBCSiteDAO implements SiteDAO
 		if (startDate == null || endDate == null) throw new IllegalArgumentException("Date entered cannot be null");
 		if (startDate.isAfter(endDate)) throw new IllegalArgumentException("Start date cannot be after end date");
 		
-		return jdbcTemplate.query("SELECT (max_occupancy, accessible, max_rv_length, utilities) FROM site "
+		return jdbcTemplate.query("SELECT max_occupancy, accessible, max_rv_length, utilities FROM site "
 				+ "WHERE campground_id = ? AND accessible = ? AND max_rv_length > ? AND utilities = ? AND max_occupancy > ? AND site_id NOT IN "
 				+ "(SELECT DISTINCT site_id FROM reservation WHERE (from_date, to_date) OVERLAPS (?, ?))",
 				mapRowToSite, campgroundID, accessible, rvLength, utilities, occupancy, startDate, endDate);
