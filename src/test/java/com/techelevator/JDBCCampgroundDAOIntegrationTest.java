@@ -16,8 +16,6 @@ import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import com.techelevator.dao.JDBCParkDAO;
 
 public class JDBCCampgroundDAOIntegrationTest {
-
-
 	
 	private JDBCParkDAO dao;
 
