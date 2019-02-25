@@ -75,7 +75,7 @@ public class JDBCSiteDAO implements SiteDAO {
 					booked=true;
 				}
 			}
-			if (!booked) {
+			if (!booked&& sites.size()<=5) {
 				sites.add(theSite);
 			}
 		}
