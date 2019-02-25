@@ -1,7 +1,6 @@
 package com.techelevator;
 
 import java.math.BigDecimal;
-import java.security.InvalidKeyException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,8 +12,6 @@ import java.util.Scanner;
 
 import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.springframework.jdbc.support.rowset.SqlRowSet;
-
 import com.techelevator.dao.CampgroundDAO;
 import com.techelevator.dao.JDBCCampgroundDAO;
 import com.techelevator.dao.JDBCParkDAO;
@@ -359,7 +356,7 @@ public class CampgroundCLI {
 			try {
 				returnedId = reserveData.createReservation(siteID, resName, fromDate, toDate);
 				System.out.println("The reservation has been made and the confirmation id is " + returnedId);
-			} catch (InvalidKeyException e) {
+			} catch (Exception e) {
 				System.out.println("Something went wrong when trying to create the reservation");
 			}
 			break;

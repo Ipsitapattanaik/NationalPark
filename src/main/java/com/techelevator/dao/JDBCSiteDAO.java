@@ -37,11 +37,11 @@ public class JDBCSiteDAO implements SiteDAO {
 	}
 
 	@Override
-	public List<Site> getSitesAvailableForDateRange(long campgroundID, LocalDate startDate, LocalDate endDate,
+	public List<Site> getSitesAvailableForDateRange(long campgroundID, LocalDate fromDate, LocalDate toDate,
 			boolean accessible, int rvLength, boolean utilities, int occupancy) throws IllegalArgumentException {
-		if (startDate == null || endDate == null)
+		if (fromDate == null || toDate == null)
 			throw new IllegalArgumentException("Date entered cannot be null");
-		if (startDate.isAfter(endDate))
+		if (fromDate.isAfter(toDate))
 			throw new IllegalArgumentException("Start date cannot be after end date");
 
 		List<Site> sites = new ArrayList<>();
@@ -50,7 +50,7 @@ public class JDBCSiteDAO implements SiteDAO {
 				+ "WHERE campground_id = ? AND accessible = ? AND max_rv_length > ? AND utilities = ? AND max_occupancy > ? AND site_id NOT IN "
 				+ "(SELECT DISTINCT site_id FROM reservation WHERE (from_date, to_date) OVERLAPS (?, ?))";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAvailableSites, campgroundID, accessible, rvLength,
-				utilities, occupancy, startDate, endDate);
+				utilities, occupancy, java.sql.Date.valueOf(fromDate), java.sql.Date.valueOf(toDate));
 		while (results.next()) {
 			Site theSite = mapRowToSite(results);
 			sites.add(theSite);
