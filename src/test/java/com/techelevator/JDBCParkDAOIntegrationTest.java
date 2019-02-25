@@ -58,7 +58,7 @@ public class JDBCParkDAOIntegrationTest {
 		dao = new JDBCParkDAO(dataSource);
 	}
 
-	/* After each test, we rollback any changes that were made to the database so that
+	/* After each test, we roll back any changes that were made to the database so that
 	 * everything is clean for the next test */
 	@After
 	public void rollback() throws SQLException {
