@@ -10,7 +10,7 @@ public class Reservation {
 	public Reservation() {
 	}
 	
-	public Reservation(int siteId, String name, LocalDate fromDate, LocalDate toDate) {
+	public Reservation(long siteId, String name, LocalDate fromDate, LocalDate toDate) {
 		this.siteId = siteId;
 		this.name = name;
 		this.fromDate = fromDate;
