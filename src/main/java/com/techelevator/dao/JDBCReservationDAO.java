@@ -75,7 +75,7 @@ public class JDBCReservationDAO implements ReservationDAO {
 	public void saveReservation(Reservation savedReservation) 
 	{
 		String sqlSavedReservation = "update reservation set name = ? where reservation_id = ?";
-		jdbcTemplate.update(sqlSavedReservation, savedReservation.getName(), savedReservation.getReservation_id());
+		jdbcTemplate.update(sqlSavedReservation, savedReservation.getName(), savedReservation.getId());
 	}
 
 
