@@ -70,6 +70,14 @@ public class JDBCReservationDAO implements ReservationDAO {
 			throw new InvalidKeyException("Site ID was not a valid site");
 		}
 	}
+	
+	@Override
+	public void saveReservation(Reservation savedReservation) 
+	{
+		String sqlSavedReservation = "update reservation set name = ? where reservation_id = ?";
+		jdbcTemplate.update(sqlSavedReservation, savedReservation.getName(), savedReservation.getReservation_id());
+	}
+
 
 	private long getNextReservationId() {
 		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('reservation_reservation_id_seq')");

@@ -1,6 +1,11 @@
 package com.techelevator;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.sql.SQLException;
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.junit.After;
@@ -8,7 +13,13 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
-public abstract class DAOIntegrationTest {
+import com.techelevator.dao.JDBCParkDAO;
+
+public class JDBCCampgroundDAOIntegrationTest {
+
+
+	
+	private JDBCParkDAO dao;
 
 	/* Using this particular implementation of DataSource so that
 	 * every database interaction is part of the same database
@@ -33,6 +44,7 @@ public abstract class DAOIntegrationTest {
 	public static void closeDataSource() throws SQLException {
 		dataSource.destroy();
 	}
+	
 
 	/* After each test, we rollback any changes that were made to the database so that
 	 * everything is clean for the next test */
