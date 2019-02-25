@@ -249,8 +249,7 @@ public class CampgroundCLI {
 					if (Integer.parseInt(userInput) == 1) {
 						accessible = true;
 						stop = true;
-					}
-					else if (Integer.parseInt(userInput) == 2) {
+					} else if (Integer.parseInt(userInput) == 2) {
 						accessible = false;
 						stop = true;
 					} else {
@@ -284,8 +283,7 @@ public class CampgroundCLI {
 					if (Integer.parseInt(userInput) == 1) {
 						utilities = true;
 						stop = true;
-					}
-					else if (Integer.parseInt(userInput) == 2) {
+					} else if (Integer.parseInt(userInput) == 2) {
 						utilities = false;
 						stop = true;
 					} else {
@@ -329,9 +327,9 @@ public class CampgroundCLI {
 			String[] options = new String[availableSites.size() + 1];
 			int i = 0;
 			for (Site site : availableSites) {
-				options[i] = ("\t"+site.getMaxOccupancy() +"\t" +"\t" + booleanToYesNo(site.isAccessible()) +"\t" +"\t"
-						+ intToNAorNumber(site.getMaxRVLength()) +"\t" +"\t" + booleanToYesNo(site.isUtilities()) +"\t" +"\t" + totalCost)
-								.toString();
+				options[i] = ("\t" + site.getMaxOccupancy() + "\t" + "\t" + booleanToYesNo(site.isAccessible()) + "\t"
+						+ "\t" + intToNAorNumber(site.getMaxRVLength()) + "\t" + "\t"
+						+ booleanToYesNo(site.isUtilities()) + "\t" + "\t" + totalCost).toString();
 				i++;
 			}
 			options[i] = "Cancel";
@@ -351,7 +349,7 @@ public class CampgroundCLI {
 		while (true) {
 			String resName = getUserInput("Please enter a name for the reservation");
 			long returnedId;
-			long siteID=site.getId();
+			long siteID = site.getId();
 
 			try {
 				returnedId = reserveData.createReservation(siteID, resName, fromDate, toDate);
