@@ -3,9 +3,11 @@ package com.techelevator.model;
 import java.time.LocalDate;
 
 public class Reservation {
+	private long reservation_id;
 	private long id, siteId;
 	private String name;
-	LocalDate fromDate, toDate, createDate;
+	LocalDate fromDate;
+	LocalDate toDate, createDate;
 	
 	public Reservation() {
 	}
@@ -45,12 +47,12 @@ public class Reservation {
 		this.name = name;
 	}
 
-	public void setFromDate(LocalDate fromDate) {
-		this.fromDate = fromDate;
+	public void setFromDate(LocalDate arrivalDate) {
+		this.fromDate = arrivalDate;
 	}
 
-	public void setToDate(LocalDate toDate) {
-		this.toDate = toDate;
+	public void setToDate(LocalDate departureDate) {
+		this.toDate = departureDate;
 	}
 
 	public LocalDate getToDate() {
@@ -64,5 +66,15 @@ public class Reservation {
 	public void setCreateDate(LocalDate createDate) {
 		this.createDate = createDate;
 	}
+
+	public long getReservation_id() {
+		
+		return reservation_id;
+	}
+
+	public void setReservation_id(long reservation_id) {
+		this.reservation_id = reservation_id;
+	}
+
 	
 }
