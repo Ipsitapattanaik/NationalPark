@@ -358,7 +358,7 @@ public class CampgroundCLI {
 				System.out.println("The reservation has been made and the confirmation id is " + returnedId);
 			} catch (Exception e) {
 				System.out.println("Something went wrong when trying to create the reservation");
-				
+				System.err.println(e);
 			}
 			break;
 		}
