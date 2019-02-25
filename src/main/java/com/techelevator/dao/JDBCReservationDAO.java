@@ -42,7 +42,7 @@ public class JDBCReservationDAO implements ReservationDAO {
 		theReservation.setId(results.getLong("reservation_id"));
 		theReservation.setCreateDate(results.getDate("create_date").toLocalDate());
 		return theReservation;
-	};
+	}
 
 	public JDBCReservationDAO(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);

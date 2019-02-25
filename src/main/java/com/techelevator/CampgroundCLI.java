@@ -227,7 +227,8 @@ public class CampgroundCLI {
 
 						break;
 					} else
-						System.out.println("Campsite is closed during selected period");
+						System.out.println(
+								"Campsite is closed during selected period. Please select a different campground or provide different date.");
 				} else
 					System.out.println("Starting date must be after today");
 			} else
@@ -319,6 +320,12 @@ public class CampgroundCLI {
 		while (true) {
 			List<Site> availableSites = siteData.getSitesAvailableForDateRange(campground.getId(), fromDate, toDate,
 					accessible, max_rv_length, utilities, max_occupancy);
+
+			if (availableSites.isEmpty()) {
+				System.out.println(
+						"There are no available sites at this campground that meet your specifications. Please try again with different dates, different parameters, or at a different campground");
+				break;
+			}
 
 			BigDecimal totalCost = campground.getDailyFee()
 					.multiply(new BigDecimal(fromDate.until(toDate, ChronoUnit.DAYS) + 1));
