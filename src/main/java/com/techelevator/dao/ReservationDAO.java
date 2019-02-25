@@ -11,5 +11,5 @@ public interface ReservationDAO
 {
 	long createReservation(long siteId, String name, LocalDate fromDate, LocalDate toDate) throws IllegalArgumentException, InvalidKeyException;
 	List<Reservation> getReservationsByStartDateForCampground(Campground campground);
-
+	public void saveReservation(Reservation savedReservation);
 }
